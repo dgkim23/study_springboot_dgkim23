@@ -20,7 +20,7 @@ https://gradle.org/releases/
 complete 클릭
 ```
 ## 환경변수
-### 시스템변수
+#### 시스템변수
 GRADLE_HOME C:\development\gradle-5.2.1
-### Path
+#### Path
 %GRADLE_HOME%bin
