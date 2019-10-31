@@ -2,7 +2,7 @@
 
 #### 1. jdk download
 ```
-https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+[link name](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 d
 ```
 #### 2. SpringBoot(STS) download
