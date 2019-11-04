@@ -10,7 +10,8 @@
     </select>
     
     
-	<insert id="insertMemberOne" parameterType="memberVO">
+	<!--INSERT-->
+    <insert id="insertMemberOne" parameterType="memberVO">
 		INSERT INTO ST_MEMBER
 		( USR_ID
 	 	, USR_PASS
