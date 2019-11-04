@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.example.member.dao.MemberDao">
-        
+    <!-- select -->    
     <select id="selectMemberList" parameterType="com.example.member.MemberVO" resultType="com.example.member.MemberVO">
         select * from st_member
     </select>
