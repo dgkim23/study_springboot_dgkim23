@@ -9,4 +9,13 @@ public interface MemberDao {
 
 	public int insertMemberOne(MemberVO pvo);
     
+	public int updateMemberOne(MemberVO pvo);
+
+	public MemberVO selectMemberOne();
+
+	public int deleteMemberOne(long memberSql);
+    
+	public MemberVO selectMemberLogin(MemberVO vo);
+
+	public MemberVO selectMember(MemberVO vo);
 }

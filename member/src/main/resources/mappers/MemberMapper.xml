@@ -26,6 +26,53 @@
 	</insert>
     
     
+    <select id="selectMemberOne" parameterType="com.example.member.MemberVO" resultType="com.example.member.MemberVO">
+        SELECT 
+	        MEMBER_SQL AS memberSql
+	        , USR_ID AS usrId
+		 	, USR_PASS AS usrPass
+		 	, USR_NAME AS usrName
+		 	, USR_ADDR AS usrAddr 
+	 	FROM ST_MEMBER
+	 	WHERE MEMBER_SQL = (SELECT MAX(MEMBER_SQL) FROM ST_MEMBER)
+    </select>
+    
+    <select id="selectMemberLogin" parameterType="com.example.member.MemberVO" resultType="com.example.member.MemberVO">
+        SELECT 
+	        MEMBER_SQL AS memberSql
+	        , USR_ID AS usrId
+		 	, USR_PASS AS usrPass
+		 	, USR_NAME AS usrName
+		 	, USR_ADDR AS usrAddr 
+	 	FROM ST_MEMBER
+	 	WHERE USR_ID = #{usrId} AND USR_PASS = #{usrPass}
+    </select>
+    
+    
+    <select id="selectMember" parameterType="com.example.member.MemberVO" resultType="com.example.member.MemberVO">
+        SELECT 
+	        MEMBER_SQL AS memberSql
+	        , USR_ID AS usrId
+		 	, USR_PASS AS usrPass
+		 	, USR_NAME AS usrName
+		 	, USR_ADDR AS usrAddr 
+		 	, USR_TKN AS usrTkn
+	 	FROM ST_MEMBER
+	 	WHERE USR_ID = #{usrId}
+	 	AND USR_TKN = #{usrTkn} 
+    </select>
+    
+    <update id="updateMemberOne" parameterType="memberVO">
+		UPDATE ST_MEMBER SET
+		USR_PASS = #{usrPass}
+		WHERE MEMBER_SQL = #{memberSql}
+	</update>
+	
+	<delete id="deleteMemberOne" parameterType="long">
+		DELETE FROM ST_MEMBER 
+		WHERE MEMBER_SQL = #{memberSql}
+	</delete>
+    
 </mapper>
 
 

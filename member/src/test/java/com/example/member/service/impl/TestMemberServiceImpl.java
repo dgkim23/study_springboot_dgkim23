@@ -1,5 +1,8 @@
 package com.example.member.service.impl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -19,8 +22,11 @@ import com.example.member.service.MemberService;
 
 public class TestMemberServiceImpl extends ApplicationTests {
 
-	@Resource(name="memberService")
+	//@Resource(name="memberService")
+	@Resource(name="mockMemberService")
 	private MemberService memberService;
+	
+	
 	
 	private MemberVO pvo;
 	
@@ -72,4 +78,90 @@ public class TestMemberServiceImpl extends ApplicationTests {
 		});
 
 	}
+	
+	
+	@Test
+	@Transactional //롤백기능
+	public void 멤버_업데이트_테스트() {
+		pvo = memberService.selectMemberOne();
+		assertNotNull(pvo);
+		
+		String usrPass = pvo.getUsrPass();
+		pvo.setUsrPass("2222");
+		
+		System.out.println("pvo.getMemberSql1 : " +pvo.getMemberSql());
+		
+		int result = memberService.updateMemberOne(pvo);
+		
+		MemberVO rvo = memberService.selectMemberOne();
+		
+		assertNotNull(rvo);		
+		
+		assertEquals(pvo.getMemberSql(),rvo.getMemberSql());		
+		
+		assertNotEquals(usrPass,rvo.getUsrPass());		
+		
+		assertTrue( 1 <= result );
+	}
+	
+	@Test
+	@Transactional //롤백기능
+	public void 멤버_업데이트_실패_테스트() {
+		int result = memberService.insertMemberOne(pvo);
+		assertTrue( 1 <= result );
+		
+		
+		pvo = memberService.selectMemberOne();
+		assertNotNull(pvo);
+		
+		System.out.println("pvo.getMemberSql2 : " +pvo.getMemberSql());
+		pvo.setUsrPass("12345678901");
+		
+		Assertions.assertThrows(DataIntegrityViolationException.class,new Executable() {
+			@Override
+			public void execute() throws Throwable {
+				memberService.updateMemberOne(pvo);
+			}
+		});
+	}
+	
+	
+	
+	@Test
+	@Transactional //롤백기능
+	public void 멤버_딜리트_테스트() {
+		pvo = memberService.selectMemberOne();
+		assertNotNull(pvo);
+		System.out.println("pvo.getMemberSql3 : " +pvo.getMemberSql());
+		
+		int result = memberService.deleteMemberOne(pvo.getMemberSql());
+		assertTrue( 1 <= result );
+	}
+	
+	@Test
+	public void 로그인_테스트() {
+		String usrId = "dgkim23";
+		String usrPass = "12345";
+		
+		MemberVO vo = new MemberVO();
+		vo.setUsrId(usrId);
+		vo.setUsrPass(usrPass);
+		
+		pvo = memberService.selectMemberOne(vo);
+		assertNotNull(pvo);
+		System.out.println("pvo.getUsrName : " +pvo.getUsrName());
+		
+	}
+	
+	/*
+	@Test
+	public void ex1() {
+		fail();
+	}
+	@Test
+	public void ex2() {
+		throw new RuntimeException();
+	}
+	*/
+
 }

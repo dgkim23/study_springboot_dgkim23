@@ -17,7 +17,15 @@ public class MemberVO {
 
 	private String usrAddr;
 
-	
+	private String usrTkn;
+
+	public String getUsrTkn() {
+		return usrTkn;
+	}
+
+	public void setUsrTkn(String usrTkn) {
+		this.usrTkn = usrTkn;
+	}
 
 	public long getMemberSql() {
 
